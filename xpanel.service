@@ -1,0 +1,22 @@
+[Unit]
+Description=XPanel - Xray management panel
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/xpanel
+Environment=XPANEL_DATA=/etc/xpanel
+ExecStart=/usr/local/xpanel/xpanel
+Restart=on-failure
+RestartSec=5
+KillMode=control-group
+LimitNOFILE=1048576
+# Hardening (the panel needs to bind ports and run Xray; nothing else)
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
